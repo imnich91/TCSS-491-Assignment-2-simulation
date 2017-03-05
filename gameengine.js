@@ -79,7 +79,6 @@ Timer.prototype.tick = function () {
 
     var gameDelta = Math.min(wallDelta, this.maxStep);
     this.gameTime += gameDelta;
-    console.log(this.gameTime)
     return gameDelta;
 }
 

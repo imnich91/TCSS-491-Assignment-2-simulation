@@ -223,6 +223,7 @@ AM.downloadAll(function () {
     gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Grass_alive.png"), 680, 486));
     gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Grass_alive.png"), 900, 486));
     gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Grass_alive.png"), 750, 486));
+    
 
 
 
