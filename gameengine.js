@@ -9,12 +9,57 @@ window.requestAnimFrame = (function () {
             };
 })();
 
+//Uses markov model for weather simulation to see if animals are kept alive.
+//If drought for more than 5 days and nothing for them to eat then they die.
+//Drought occurs after
 function GameEngine() {
     this.entities = [];
     this.chars = [];
     this.ctx = null;
     this.surfaceWidth = null;
     this.surfaceHeight = null;
+    this.updateDay = false;
+    this.sunCreated = false;
+    this.sun = true;
+    this.cloudy = false;
+    this.drought = false;
+    this.transitionTable = [.9, .1, .3, .7];
+    this.initialState = true;
+    this.sunny = 1;
+    this.rainy = 0;
+}
+
+//Index 1 of sun rain prob is probability of sunny.
+GameEngine.prototype.calculateDailyProbability = function() {
+    //var sun_rain_prob = [];
+    if(this.initialState) {
+        //sun_rain_prob.push(this.sunny);
+        //sun_rain_prob.push(this.rainy);
+        this.initialState = false;
+        this.calcX1 = true;
+        console.log("sunny x0: " + this.sunny);
+        console.log('rainy x0:' + this.rainy);
+    } else if(this.calcX1) {
+        this.sunny = (this.transitionTable[0] * this.sunny).toFixed(2);
+        this.rainy = 1- this.sunny;
+        //sun_rain_prob.push(this.sunny);
+        //sun_rain_prob.push(this.rainy);
+        this.calcX1 = false;
+        console.log("sunny x1: " + this.sunny);
+        console.log('rainy x1:' + this.rainy);
+    } else {
+        this.sunny = ((this.transitionTable[0] * this.sunny) + (this.transitionTable[1] * this.rainy)).toFixed(2);
+        this.rainy = 1 - this.sunny;
+        //sun_rain_prob.push(this.sunny);
+        //sun_rain_prob.push(this.rainy);
+
+        console.log("sunny x2: " + this.sunny);
+        console.log('rainy x2:' + this.rainy);
+    }
+
+    //return sun_rain_prob;
+
+
 
 }
 
@@ -24,6 +69,7 @@ GameEngine.prototype.init = function (ctx) {
     this.surfaceHeight = this.ctx.canvas.height;
     this.timer = new Timer();
     console.log('game initialized');
+    this.startGame = true;
 }
 
 GameEngine.prototype.start = function () {
@@ -37,7 +83,11 @@ GameEngine.prototype.start = function () {
 
 GameEngine.prototype.addEntity = function (entity) {
     console.log('added entity');
+
+
     this.entities.push(entity);
+
+
 }
 
 GameEngine.prototype.draw = function () {
@@ -49,7 +99,54 @@ GameEngine.prototype.draw = function () {
     this.ctx.restore();
 }
 
+
 GameEngine.prototype.update = function () {
+  if(this.sunCreated) {
+    if(this.entities[0].x < -400  && this.updateDay) {
+      this.calculateDailyProbability(); //.5
+
+      this.higher_prob = Math.max(this.sunny, this.rainy);
+      console.log("HIGHER PROBABILITY:" + this.higher_prob.toFixed(2))
+      var random = Math.random();
+      console.log("RANDOM " + random);//.37  < sunny .55
+
+
+      if (random.toFixed(2) < this.higher_prob) {
+        if(this.higher_prob === this.sunny) {
+          this.sun = true;
+          this.cloudy = false;
+          this.drought = true;
+          console.log("PICKED SUNNY, it had higher probability too ")
+        } else {
+          this.cloudy = true;
+          this.sun = false;
+          this.drought = false;
+          console.log("PICKED Rainy , it had lower probability too ")
+        }
+
+      } else if(random.toFixed(2) >= this.higher_prob) {
+        if(this.higher_prob === this.sunny) {
+          console.log("PICKED Rainy , it had higher probability too ")
+
+          this.cloudy = true;
+          this.sun = false;
+          this.drought = false;
+        } else {
+          this.sun = true;
+          this.cloudy = false;
+          this.drought = true;
+          console.log("PICKED SUNNY, it had lower probability too ")
+
+        }
+      }
+      this.updateDay = false;
+    }
+    if(this.entities[0].x > 850) {
+      this.updateDay = true;
+    }
+  }
+
+
     var entitiesCount = this.entities.length;
 
     for (var i = 0; i < entitiesCount; i++) {
@@ -79,7 +176,6 @@ Timer.prototype.tick = function () {
 
     var gameDelta = Math.min(wallDelta, this.maxStep);
     this.gameTime += gameDelta;
-    console.log(this.gameTime)
     return gameDelta;
 }
 
