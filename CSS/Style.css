@@ -1,0 +1,14 @@
+#gameControl {
+	position: absolute;
+  top: 0px;
+	left: 1020px;
+	width: 400px;
+	height: 600px;
+	color: black;
+}
+
+#gamecontainer {
+	position: relative;
+	width: 1000px;
+  height: 600px;
+}

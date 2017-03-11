@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>Game Project Shell</title>
+    <link rel="stylesheet" type="text/css" href="./CSS/Style.css">
     <script type="text/javascript" src="./gameengine.js"></script>
     <script type="text/javascript" src="./assetmanager.js"></script>
     <script type="text/javascript" src="./main.js"></script>
@@ -15,6 +16,31 @@
 
 </head>
 <body>
-    <canvas id="gameWorld" tabindex="1" width="1000" height="600" style="border: 1px solid brown; background: #A1C5ED"></canvas>
+  <div id = "gamecontainer">
+    <canvas id="gameWorld" tabindex="1" width="1000" height="600" ></canvas>
+    <div id = "gameControl">
+      <h1>&nbsp;&nbsp;&nbsp;Weather Simulation</h1>
+      <h3>This simulation uses a Hidden Markov Model to determine the weather for each day.</h3>
+      <h3>States: X = {sun, rain}</h3>
+      <h3>Initial Distribution: Even chance to start with sun or rain.</h3>
+      <h3>The transition table is as follows:</h3>
+      <h3>|   Xt-1   |    Xt    |   P( Xt | Xt-1 )   |</h3>
+      <h3>|   sun    |   sun    |         .9         |</h3>
+      <h3>|   sun    |   rain   |         .1         |</h3>
+      <h3>|   rain   |   sun    |         .3         |</h3>
+      <h3>|   rain   |   rain   |         .7         |</h3>
+      <h3>
+        The plants need enough rain in order to survive.
+        If the number of sunny days ever exceeds the number of rainy days by 7 days then the plants will die.
+        They can come back to life if the number rainy days gets back within 7 days of the number of sunny days.
+      </h3>
+      <!-- <h3>Arrow Left/Key A: &nbsp;&nbsp; move left</h3>
+      <h3>Arrow Right/Key D: &nbsp;&nbsp; move right</h3>
+      <h3>Arrow Down/Key S: &nbsp;&nbsp; Magic attack</h3>
+      <h3>Key J/Num 1:&nbsp;&nbsp; attack with sword</h3>
+      <h3>Key K/Num 2:&nbsp;&nbsp; attack with bow</h3>
+      <h3>Key L/Num 3:&nbsp;&nbsp; open chest</h3> -->
+    </div>
+  </div>
 </body>
 </html>
