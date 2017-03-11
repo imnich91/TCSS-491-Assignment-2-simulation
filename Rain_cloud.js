@@ -8,7 +8,6 @@ function Rain_cloud(game, spritesheet, x, y, speed, marker) {
   this.game = game;
   this.speed = speed;
   this.marker = marker;
-  this.raining = false;
   this.startSpeed = speed;
 }
 
@@ -27,19 +26,16 @@ Rain_cloud.prototype.draw = function() {
 
 Rain_cloud.prototype.update = function () {
   if(this.game.cloudy) {
-    if(this.x > 1200) {
+    if(this.x > 1000) {
       this.x = -450;
+
     }
     this.speed = this.startSpeed;
     this.raining = true;
   } else {
-    this.raining = false;
     this.speed = 500;
 
   }
-
-
-
 
   this.x += this.game.clockTick * this.speed;
 }
