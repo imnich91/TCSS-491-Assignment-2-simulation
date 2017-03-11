@@ -392,7 +392,7 @@ AM.downloadAll(function () {
 
     gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/ground.png"), 0, 536));
 
->>>>>>> gh-pages
+
 
 
 
