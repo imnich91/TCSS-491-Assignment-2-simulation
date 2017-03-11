@@ -345,23 +345,7 @@ AM.downloadAll(function () {
 
     gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Tree.png"), 0, 276));
     gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Tree.png"), 700, 276));
-<<<<<<< HEAD
-    gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Bush_alive.png"), 400, 448));
-    gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Bush_alive.png"), 600, 448));
-    gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Bush_alive.png"), 300, 448));
 
-    gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Grass_alive.png"), 0, 486));
-    gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Grass_alive.png"), 25, 486));
-    gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Grass_alive.png"), 100, 486));
-    gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Grass_alive.png"), 138, 486));
-    gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Grass_alive.png"), 256, 486));
-    gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Grass_alive.png"), 491, 486));
-
-    gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Grass_alive.png"), 680, 486));
-    gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Grass_alive.png"), 900, 486));
-    gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/Grass_alive.png"), 750, 486));
-    
-=======
 
     //Clouds in front of trees
 
