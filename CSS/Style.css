@@ -7,8 +7,56 @@
 	color: black;
 }
 
+/*#loadbutton {
+	position: absolute;
+	left: 950;
+	top: 550;
+}*/
+
 #gamecontainer {
 	position: relative;
 	width: 1000px;
   height: 600px;
+}
+
+#buttonSave {
+
+	color: black;
+	width: 100px;
+	height: 40px;
+	border-radius: 25px;
+	border-style: solid;
+	border-color: black;
+	background-color: #FFFFFF;
+	opacity: .9;
+	position: absolute;
+	top:555px;
+	left:870px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 43px;
+	font-size: 12px;
+	font-weight: 800;
+	font-family:serif;
+}
+
+#buttonLoad {
+
+	color: black;
+	width: 100px;
+	height: 40px;
+	border-radius: 25px;
+	border-style: solid;
+	border-color: black;
+	background-color: #FFFFFF;
+	opacity: .9;
+	position: absolute;
+	top:555px;
+	left:750px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 43px;
+	font-size: 12px;
+	font-weight: 800;
+	font-family:serif;
 }

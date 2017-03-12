@@ -18,9 +18,15 @@
 <body>
   <div id = "gamecontainer">
     <canvas id="gameWorld" tabindex="1" width="1000" height="600" ></canvas>
+    <div class ="healthbar">
+        <div id="health">
+            <div id = 'buttonLoad'><span id = 'play' class = 'undhide'>Load Sim</span></div>
+            <div id = 'buttonSave'><span id = 'play' class = 'undhide'>Save Sim</span></div>
+        </div>
+    </div>
     <div id = "gameControl">
       <h1>&nbsp;&nbsp;&nbsp;Weather Simulation</h1>
-      <h3>This simulation uses a Hidden Markov Model to determine the weather for each day.</h3>
+      <h3>This simulation uses a Markov Chain to determine the weather for each day.</h3>
       <h3>States: X = {sun, rain}</h3>
       <h3>Initial Distribution: Even chance to start with sun or rain.</h3>
       <h3>The transition table is as follows:</h3>
