@@ -155,24 +155,20 @@ GameEngine.prototype.update = function () {
       console.log("HIGHER PROBABILITY:" + this.higher_prob)
       console.log("RANDOM " + random);//.37  < sunny .55
 
-      console.log("random < this.higher_prob: "  + (random < this.higher_prob));
 
       if (random < this.higher_prob) {
         if(this.higher_prob === this.sunny) {
           this.sun = true;
           this.cloudy = false;
-          console.log("PICKED SUNNY, it had higher probability too ")
           this.sunnyDays++;
         } else {
           this.cloudy = true;
           this.sun = false;
-          console.log("PICKED Rainy , it had lower probability too ")
           this.rainyDays++;
         }
 
       } else if(random >= this.higher_prob) {
         if(this.higher_prob === this.sunny) {
-          console.log("PICKED Rainy , it had higher probability too ")
 
           this.cloudy = true;
           this.sun = false;
@@ -182,7 +178,6 @@ GameEngine.prototype.update = function () {
           this.sunnyDays++;
           this.sun = true;
           this.cloudy = false;
-          console.log("PICKED SUNNY, it had lower probability too ")
 
         }
       }
