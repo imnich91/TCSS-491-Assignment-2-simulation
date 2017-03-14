@@ -1,3 +1,32 @@
+
+var socket = io.connect("http://76.28.150.193:8888");
+
+var globalGameEngine;
+
+socket.on("connect", function () {
+        console.log("Socket connected.")
+    });
+
+
+socket.on('load', function (data) {
+  if(data.studentname) {
+    globalGameEngine.updateDay = data.mystate.updateDay,
+    globalGameEngine.sunCreated = data.mystate.sunCreated,
+    globalGameEngine.sun = data.mystate.sun,
+    globalGameEngine.cloudy = data.mystate.cloudy,
+    globalGameEngine.drought = data.mystate.drought,
+    globalGameEngine.rainyDays = data.mystate.rainyDays,
+    globalGameEngine.sunnyDays = data.mystate.sunnyDays,
+    globalGameEngine.sunny = data.mystate.sunny,
+    globalGameEngine.rainy = data.mystate.rainy
+    console.log(globalGameEngine.sunny)
+    console.log(globalGameEngine.rainy)
+  }
+
+  alert("Loaded state: \nRainy days: " + globalGameEngine.rainyDays + "\nSunny days: " + globalGameEngine.sunnyDays + "\nDrought: " + globalGameEngine.drought)
+});
+
+
 window.requestAnimFrame = (function () {
     return window.requestAnimationFrame ||
             window.webkitRequestAnimationFrame ||
@@ -29,6 +58,7 @@ function GameEngine() {
     this.initialState = true;
     this.sunny = 0.00;
     this.rainy = 0.00;
+
 }
 
 //Index 1 of sun rain prob is probability of sunny.
@@ -92,29 +122,56 @@ GameEngine.prototype.init = function (ctx) {
     this.timer = new Timer();
     console.log('game initialized');
     this.startGame = true;
+    var that = this;
+    globalGameEngine = this;
+    document.getElementById("buttonLoad").onclick = function () { socket.emit('load', { studentname: "Ian Nicholas", statename: "saved state"});};
+    document.getElementById("buttonSave").onclick = function () { that.save(that)};
 
+}
+
+GameEngine.prototype.save = function (that) {
+
+  var data = {
+    updateDay: that.updateDay,
+    sunCreated: that.sunCreated,
+    sun: that.sun,
+    cloudy: that.cloudy,
+    drought: that.drought,
+    rainyDays: that.rainyDays,
+    sunnyDays: that.sunnyDays,
+    sunny: that.sunny,
+    rainy: that.rainy
+  }
+  socket.emit('save', { studentname: "Ian Nicholas", statename: "saved state", mystate: data});
+
+  alert("Saved state: \nRainy days: " + globalGameEngine.rainyDays + "\nSunny days: " + globalGameEngine.sunnyDays + "\nDrought: " + globalGameEngine.drought)
 }
 
 GameEngine.prototype.start = function () {
     console.log("starting game");
+    globalGameEngine = this;
     var that = this;
     (function gameLoop() {
         that.loop();
         requestAnimFrame(gameLoop, that.ctx.canvas);
     })();
+
+
+
+
+
     var random = Math.random();
     if(random < .5) {
       this.sun = true;
       this.sunny = 1.00;
       this.rainy = 0.00;
-      this.sunnyDays++;
     } else{
       this.cloudy = true;
       this.sunny = 0.00;
       this.rainy = 1.00;
-      this.rainyDays++;
     }
 }
+
 
 GameEngine.prototype.addEntity = function (entity) {
     console.log('added entity');
@@ -179,6 +236,16 @@ GameEngine.prototype.update = function () {
           this.sun = true;
           this.cloudy = false;
 
+        }
+      } else {
+        if(random < .5) {
+          this.cloudy = true;
+          this.sun = false;
+          this.rainyDays++;
+        } else {
+          this.sunnyDays++;
+          this.sun = true;
+          this.cloudy = false;
         }
       }
       this.updateDay = false;
